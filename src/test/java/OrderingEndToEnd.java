@@ -11,9 +11,10 @@ import pageObject.MainPage;
 import pageObject.PersonalData;
 
 @RunWith(Parameterized.class)
-public class OrderingEndTwoEnd {
+public class OrderingEndToEnd {
     private WebDriver driver;
 
+    private final String orderButton;
     private final String name;
     private final String surname;
     private final String address;
@@ -26,7 +27,8 @@ public class OrderingEndTwoEnd {
 
 
 
-    public OrderingEndTwoEnd(String name, String surname, String address, String metro, String phone, String dateText, String commentText) {
+    public OrderingEndToEnd(String orderButton, String name, String surname, String address, String metro, String phone, String dateText, String commentText) {
+        this.orderButton = orderButton;
         this.name = name;
         this.surname = surname;
         this.address = address;
@@ -43,9 +45,9 @@ public class OrderingEndTwoEnd {
     public static Object[][]getData(){
 
         return new Object[][] {
-                {"Николай", "Баранов","Москва", "Лубянка", "89032451058", "01.04.2023", "Привет, курьер!"},
-                {"Виктор", "Петров", "Мытищи","Медведково", "87779093450", "10.04.2023", "Позвонить по приезду"},
-                {"Дарья", "Петькина", "Подольск", "Бунинская аллея", "89067632113", "07.08.2023", "12 этаж"}
+                {"//button[@class='Button_Button__ra12g']", "Николай", "Баранов","Москва", "Лубянка", "89032451058", "01.04.2023", "Привет, курьер!"},
+                {"//button[@class='Button_Button__ra12g Button_Middle__1CSJM']", "Виктор", "Петров", "Мытищи","Медведково", "87779093450", "10.04.2023", "Позвонить по приезду"},
+                {"//button[@class='Button_Button__ra12g Button_Middle__1CSJM']", "Дарья", "Петькина", "Подольск", "Бунинская аллея", "89067632113", "07.08.2023", "12 этаж"}
 
 
         };
@@ -62,7 +64,7 @@ public class OrderingEndTwoEnd {
     @Test
     public void test(){
         MainPage mainPage = new MainPage(driver);
-        mainPage.clickOrderUpButton();
+        mainPage.clickOrderButton(orderButton);
         PersonalData personalData = new PersonalData(driver);
         personalData.clickNext();
         personalData.expectationAlertName();

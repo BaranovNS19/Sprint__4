@@ -60,6 +60,8 @@ public class MainPage {
     private final By liveOutsideMoscow = By.xpath("//div[text()='Я жизу за МКАДом, привезёте?']");
     private final By liveOutsideMoscowResponse = By.xpath("//p[text()='Да, обязательно. Всем самокатов! И Москве, и Московской области.']");
 
+    // Кнопка "да все привыкли"
+    private final By buttonCookie = By.xpath("//button[text()='да все привыкли']");
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -167,6 +169,11 @@ public class MainPage {
         driver.findElement(orderDown).click();
     }
 
+    public void clickOrderButton(String xpath){
+        driver.findElement(buttonCookie).click();
+        driver.findElement(By.xpath(xpath)).click();
+    }
+
     //Ожидание элементов главной страницы
     public void expectElementsMainPage(){
         new WebDriverWait(driver, 3)
@@ -182,6 +189,11 @@ public class MainPage {
         driver.findElement(logoYandex).click();
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.elementToBeClickable(pageYandexDzen));
+    }
+
+    //Нажатие на кнопку "да все привыкли"
+    public void clickButtonCookie(){
+        driver.findElement(buttonCookie).click();
     }
 
 }
