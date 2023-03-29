@@ -67,69 +67,6 @@ public class MainPage {
     }
 
 
-    public String paymentQuestion(){
-        driver.findElement(payment).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(paymentResponse));
-        String textResponse = driver.findElement(paymentResponse).getText();
-        return textResponse;
-    }
-
-    public String severalScootersQuestion(){
-        driver.findElement(severalScooters).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(severalScootersResponse));
-        String textResponse = driver.findElement(severalScootersResponse).getText();
-        return textResponse;
-    }
-
-    public String countingTimeQuestion(){
-        driver.findElement(countingTime).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(countingTimeResponse));
-        String textResponse = driver.findElement(countingTimeResponse).getText();
-        return textResponse;
-    }
-
-    public String orderTodayQuestion(){
-        driver.findElement(orderToday).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(orderTodayResponse));
-        String textResponse = driver.findElement(orderTodayResponse).getText();
-        return textResponse;
-    }
-
-    public String rentalTimeQuestion(){
-        driver.findElement(rentalTime).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(rentalTimeResponse));
-        String textResponse = driver.findElement(rentalTimeResponse).getText();
-        return textResponse;
-    }
-
-    public String chargingWillQuestion(){
-        driver.findElement(chargingWill).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(chargingWillResponse));
-        String textResponse = driver.findElement(chargingWillResponse).getText();
-        return textResponse;
-    }
-
-    public String cancelTheOrderQuestion(){
-        driver.findElement(cancelTheOrder).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(cancelTheOrderResponse));
-        String textResponse = driver.findElement(cancelTheOrderResponse).getText();
-        return textResponse;
-    }
-
-    public String liveOutsideMoscowQuestion(){
-        driver.findElement(liveOutsideMoscow).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(liveOutsideMoscowResponse));
-        String textResponse = driver.findElement(liveOutsideMoscowResponse).getText();
-        return textResponse;
-    }
 
     //Нажатие кнопки "Статус заказа"
     public void clickButtonStatusOrder(){
@@ -194,6 +131,15 @@ public class MainPage {
     //Нажатие на кнопку "да все привыкли"
     public void clickButtonCookie(){
         driver.findElement(buttonCookie).click();
+    }
+
+    public String textResponse(String xpathQuestions,String xpathResponse){
+        driver.findElement(By.xpath(xpathQuestions)).click();
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath(xpathResponse)));
+        String textResponse = driver.findElement(By.xpath(xpathResponse)).getText();
+        return textResponse;
+
     }
 
 }

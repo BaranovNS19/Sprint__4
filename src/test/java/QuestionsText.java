@@ -13,26 +13,17 @@ import pageObject.MainPage;
 @RunWith(Parameterized.class)
 public class QuestionsText {
     private WebDriver driver;
-    private final String response1;
-    private final String response2;
-    private final String response3;
-    private final String response4;
-    private final String response5;
-    private final String response6;
-    private final String response7;
-    private final String response8;
+
+    private final String questions;
+    private final String expectedResponse;
+    private final String actualResponse;
 
 
 
-    public QuestionsText(String response1, String response2, String response3, String response4, String response5, String response6, String response7, String response8){
-        this.response1 = response1;
-        this.response2 = response2;
-        this.response3 = response3;
-        this.response4 = response4;
-        this.response5 = response5;
-        this.response6 = response6;
-        this.response7 = response7;
-        this.response8 = response8;
+    public QuestionsText(String questions, String expectedResponse, String actualResponse){
+        this.questions = questions;
+        this.expectedResponse = expectedResponse;
+        this.actualResponse = actualResponse;
 
     }
     @Before
@@ -47,14 +38,22 @@ public class QuestionsText {
 
 
         return new Object[][] {
-                {"Сутки — 400 рублей. Оплата курьеру — наличными или картой." ,
-                "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.",
-                "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.",
-                "Только начиная с завтрашнего дня. Но скоро станем расторопнее.",
-                "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.",
-                "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.",
-                "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.",
-                "Да, обязательно. Всем самокатов! И Москве, и Московской области."}
+                {"//div[text()='Сколько это стоит? И как оплатить?']", "Сутки — 400 рублей. Оплата курьеру — наличными или картой.", "//p[text()='Сутки — 400 рублей. Оплата курьеру — наличными или картой.']"
+                },
+                {"//div[text()='Хочу сразу несколько самокатов! Так можно?']", "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.", "//p[text()='Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.']"
+                },
+                {"//div[text()='Как рассчитывается время аренды?']", "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.", "//p[text()='Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.']"
+                },
+                {"//div[text()='Можно ли заказать самокат прямо на сегодня?']", "Только начиная с завтрашнего дня. Но скоро станем расторопнее.", "//p[text()='Только начиная с завтрашнего дня. Но скоро станем расторопнее.']"
+                },
+                {"//div[text()='Можно ли продлить заказ или вернуть самокат раньше?']", "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.", "//p[text()='Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.']"
+                },
+                {"//div[text()='Вы привозите зарядку вместе с самокатом?']", "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.", "//p[text()='Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.']"
+                },
+                {"//div[text()='Можно ли отменить заказ?']", "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.", "//p[text()='Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.']"
+                },
+                {"//div[text()='Я жизу за МКАДом, привезёте?']", "Да, обязательно. Всем самокатов! И Москве, и Московской области.", "//p[text()='Да, обязательно. Всем самокатов! И Москве, и Московской области.']"
+                }
 
 
 
@@ -67,15 +66,8 @@ public class QuestionsText {
         MainPage mainPage = new MainPage(driver);
         mainPage.expectation();
         mainPage.scroll();
-        Assert.assertEquals(response1, mainPage.paymentQuestion());
-        Assert.assertEquals(response2, mainPage.severalScootersQuestion());
-        Assert.assertEquals(response3, mainPage.countingTimeQuestion());
-        Assert.assertEquals(response4, mainPage.orderTodayQuestion());
-        Assert.assertEquals(response5, mainPage.rentalTimeQuestion());
-        Assert.assertEquals(response6, mainPage.chargingWillQuestion());
-        Assert.assertEquals(response7, mainPage.cancelTheOrderQuestion());
-        mainPage.clickButtonCookie();
-        Assert.assertEquals(response8, mainPage.liveOutsideMoscowQuestion());
+        Assert.assertEquals(expectedResponse, mainPage.textResponse(questions, actualResponse));
+
     }
 
 
